@@ -16,38 +16,47 @@ new Swiper('.card-wrapper', {
   },
 
   breakpoints: {
-    0: { 
+    0: {
       slidesPerView: 1,
     },
-    640: { 
+    640: {
       slidesPerView: 2,
     },
-    768: { 
+    768: {
       slidesPerView: 3,
     },
-    1024: { 
+    1024: {
       slidesPerView: 4,
     }
   }
 });
 
-
 window.addEventListener('load', () => {
-  const screenWidth = window.screen.width;
-  const screenHeight = window.screen.height;
-  
-  // Verifica se a tela é Full HD (mínimo de 1340x900)
-  const isFullHD = (screenWidth >= 1340 && screenHeight >= 900);
-
   const content = document.getElementById('sumir');
   const blocked = document.getElementById('blocked');
 
-  if (isFullHD) {
+  // Verificação da resolução real da TELA (não da janela)
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+
+  // Também verifica a área visível da JANELA
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
+  const isExactResolution = screenWidth >= 1340 && screenHeight >= 900;
+  const isWindowMatching = windowWidth >= 1340 && windowHeight >= 900;
+
+  if (isExactResolution && isWindowMatching) {
     content.style.display = 'block';
     blocked.style.display = 'none';
   } else {
     content.style.display = 'none';
-    blocked.style.display = 'flex'; // melhor para centralizar conteúdo
+    blocked.style.display = 'flex';
+  }
+
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    content.style.display = 'none';
+    blocked.style.display = 'flex';
   }
 });
-
