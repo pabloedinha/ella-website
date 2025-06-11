@@ -33,14 +33,21 @@ new Swiper('.card-wrapper', {
 
 
 window.addEventListener('load', () => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  
+  // Verifica se a tela é Full HD (mínimo de 1340x900)
+  const isFullHD = (screenWidth >= 1340 && screenHeight >= 900);
 
-  if (width >= 1340 && height >= 900) {
-    document.getElementById('sumir').style.display = 'block';
-    document.getElementById('blocked').style.display = 'none';
+  const content = document.getElementById('sumir');
+  const blocked = document.getElementById('blocked');
+
+  if (isFullHD) {
+    content.style.display = 'block';
+    blocked.style.display = 'none';
   } else {
-    document.getElementById('sumir').style.display = 'none';
-    document.getElementById('blocked').style.display = 'block';
+    content.style.display = 'none';
+    blocked.style.display = 'flex'; // melhor para centralizar conteúdo
   }
 });
+
